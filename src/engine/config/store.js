@@ -14,6 +14,11 @@ export const useStore = create(
       set((state) => ({
         page: state.page + 1,
       })),
+    beerName: "",
+    setBeerName: (beerName) =>
+      set(() => ({
+        beerName: beerName,
+      })),
   })
   // {
   //   name: "beerRecipes",
