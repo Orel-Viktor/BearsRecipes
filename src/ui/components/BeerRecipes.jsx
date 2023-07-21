@@ -13,6 +13,8 @@ export function BeerRecipes() {
   const incPage = useStore((state) => state.incPage);
 
   const setBeerName = useStore((state) => state.setBeerName);
+  const setRecipe = useStore((state) => state.setRecipe);
+
   // store.js;
   const heightRecipes = window.visualViewport.height / 15;
 
@@ -39,6 +41,7 @@ export function BeerRecipes() {
 
   const PushToRecipe = (beerName) => {
     setBeerName(beerName);
+    setRecipe();
     nav(routes.recipe);
   };
 

@@ -9,15 +9,27 @@ export const useStore = create(
       set((state) => ({
         beerRecipes: [...state.beerRecipes, beerRecipes],
       })),
+    ///////////////////////////
     page: 1,
     incPage: () =>
       set((state) => ({
         page: state.page + 1,
       })),
-    beerName: "",
+    ///////////////////////////
+    currentBeerName: "",
     setBeerName: (beerName) =>
-      set(() => ({
-        beerName: beerName,
+      set((state) => ({
+        currentBeerName: (state.beerName = beerName),
+      })),
+    //////////////////////////////////
+    currentRecipe: null,
+    setRecipe: () =>
+      set((state) => ({
+        currentRecipe: state.beerRecipes
+          .find((elem) =>
+            elem.find((elem) => elem.name === state.currentBeerName)
+          )
+          .find((recipe) => recipe.name === state.currentBeerName),
       })),
   })
   // {
