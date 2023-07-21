@@ -18,9 +18,12 @@ export function BeerRecipes() {
 
   // store.js;
   const heightRecipes = window.visualViewport.height / 15;
+
+  // Observer
   const { ref, inView } = useInView({
     threshold: 1,
   });
+
   const scrlonig = () => {
     if (scrollY + innerHeight === document.body.scrollHeight) {
       if (beerRecipes[beerRecipes.length - 1].length) {
@@ -69,7 +72,7 @@ export function BeerRecipes() {
                 }}
                 key={recipe + id}
               >
-                {inView ? <div>loading</div> : <div>{recipe.name}</div>}
+                {inView ? <div>{recipe.name}</div> : <div>loading</div>}
               </div>
             ))
           )
