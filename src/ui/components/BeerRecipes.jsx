@@ -2,6 +2,7 @@ import React, { useEffect } from "react";
 import { useStore } from "../../engine/config/store";
 import { useNavigate } from "react-router-dom";
 import { routes } from "../../engine/config/routers";
+import { useInView } from "react-intersection-observer";
 
 export function BeerRecipes() {
   const nav = useNavigate();
@@ -17,7 +18,9 @@ export function BeerRecipes() {
 
   // store.js;
   const heightRecipes = window.visualViewport.height / 15;
-
+  const { ref, inView } = useInView({
+    threshold: 1,
+  });
   const scrlonig = () => {
     if (scrollY + innerHeight === document.body.scrollHeight) {
       if (beerRecipes[beerRecipes.length - 1].length) {
@@ -52,19 +55,21 @@ export function BeerRecipes() {
     const recipes = await response.json();
     getBeerRecipes(recipes);
   };
+
   return (
     <div>
       {beerRecipes.length
         ? beerRecipes.map((elem) =>
             elem.map((recipe, id) => (
               <div
+                ref={ref}
                 onClick={() => PushToRecipe(recipe.name)}
                 style={{
                   minHeight: `${heightRecipes}px`,
                 }}
                 key={recipe + id}
               >
-                {recipe.name}
+                {inView ? <div>loading</div> : <div>{recipe.name}</div>}
               </div>
             ))
           )
