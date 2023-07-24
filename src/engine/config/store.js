@@ -7,7 +7,13 @@ export const useStore = create(
     beerRecipes: [],
     setBeerRecipes: (beerRecipes) =>
       set((state) => ({
-        beerRecipes: [...state.beerRecipes, beerRecipes],
+        beerRecipes: [...state.beerRecipes, ...beerRecipes],
+      })),
+    /////////////////////
+    responseBeer: [],
+    setBeerResponse: (recipes) =>
+      set(() => ({
+        responseBeer: [...recipes],
       })),
     ///////////////////////////
     page: 1,
@@ -25,11 +31,9 @@ export const useStore = create(
     currentRecipe: null,
     setRecipe: () =>
       set((state) => ({
-        currentRecipe: state.beerRecipes
-          .find((elem) =>
-            elem.find((elem) => elem.name === state.currentBeerName)
-          )
-          .find((recipe) => recipe.name === state.currentBeerName),
+        currentRecipe: state.beerRecipes.find(
+          (elem) => elem.name === state.currentBeerName
+        ),
       })),
   })
   // {
