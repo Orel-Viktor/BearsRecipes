@@ -11,6 +11,7 @@ export function BeerRecipes() {
   const setBeerRecipes = useStore((state) => state.setBeerRecipes);
   const responseBeer = useStore((state) => state.responseBeer);
   const setBeerResponse = useStore((state) => state.setBeerResponse);
+  const setChecked = useStore((state) => state.setChecked);
 
   const page = useStore((state) => state.page);
   const incPage = useStore((state) => state.incPage);
@@ -20,6 +21,7 @@ export function BeerRecipes() {
 
   // store.js;
   const heightRecipes = window.visualViewport.height / 15;
+  console.log(beerRecipes);
 
   // Observer
   // const { ref, inView } = useInView({
@@ -67,24 +69,42 @@ export function BeerRecipes() {
     setBeerRecipes(recipes);
     setBeerResponse(recipes);
   };
+  const onContextMenu = (e, index) => {
+    e.preventDefault();
+    !e.target.classList.contains("checked-recipe")
+      ? e.target.classList.add("checked-recipe")
+      : e.target.classList.remove("checked-recipe");
 
-  const checkRecipe = (event) => {
-    console.log(event);
-    if (event === 2) {
-      console.log(" правая конпка миши");
+    function findElementByIndex(arr, index) {
+      const foundElement = arr.find(
+        (element, currentIndex) => currentIndex === index
+      );
+      return foundElement !== undefined ? foundElement : null;
     }
+    const currentRecipe = findElementByIndex(beerRecipes, index);
+
+    console.log(currentRecipe);
+    const checked = currentRecipe.checked ? false : true;
+    console.log(checked);
+    setChecked(index, checked);
   };
 
   return (
     <div>
       {beerRecipes.length
-        ? beerRecipes.map((recipe, id) => (
+        ? beerRecipes.map((recipe, index) => (
             <div
-              onClick={(() => PushToRecipe(recipe.name), checkRecipe())}
+              onClick={() => PushToRecipe(recipe.name)}
+              onContextMenu={() => onContextMenu(window.event, index)}
               style={{
-                minHeight: `${heightRecipes}px`,
+                minHeight: `${heightRecipes - 10}px`,
+                borderRadius: "10px",
+                margin: " 0 0 10px 0",
+                display: "flex",
+                alignItems: "center",
+                justifyContent: "space-around",
               }}
-              key={recipe + id}
+              key={recipe + recipe.id}
             >
               {recipe.name}
             </div>

@@ -35,10 +35,16 @@ export const useStore = create(
           (elem) => elem.name === state.currentBeerName
         ),
       })),
+    setChecked: (index, checked) =>
+      set((state) => {
+        const newBeerRecipes = [...state.beerRecipes];
+        if (index >= 0 && index < newBeerRecipes.length) {
+          newBeerRecipes[index] = {
+            ...newBeerRecipes[index],
+            checked: checked,
+          };
+        }
+        return { beerRecipes: newBeerRecipes };
+      }),
   })
-  // {
-  //   name: "beerRecipes",
-  //   storage: createJSONStorage(() => localStorage),
-  // }
 );
-// );
