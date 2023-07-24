@@ -3,7 +3,7 @@ import { useStore } from "../../engine/config/store";
 
 export function BeersRecipe() {
   const currentRecipe = useStore((state) => state.currentRecipe);
-  console.log(currentRecipe);
+  // console.log(currentRecipe);
   return currentRecipe ? (
     <div>
       <RecipeInner dataRecipe={currentRecipe}></RecipeInner>

@@ -21,7 +21,7 @@ export function BeerRecipes() {
 
   // store.js;
   const heightRecipes = window.visualViewport.height / 15;
-  console.log(beerRecipes);
+  // console.log(beerRecipes);
 
   // Observer
   // const { ref, inView } = useInView({
@@ -39,6 +39,15 @@ export function BeerRecipes() {
     initState();
   }, []);
 
+  useEffect(() => {
+    for (let i = 0; i < beerRecipes.length; i++) {
+      const checked = beerRecipes[i].checked;
+      const divBeerRecipe = document.querySelectorAll(".beerRecipe");
+      checked
+        ? divBeerRecipe[i].classList.add("checked-recipe")
+        : divBeerRecipe[i].classList.remove("checked-recipe");
+    }
+  }, []);
   const scrlonig = () => {
     if (
       scrollY + innerHeight === document.body.scrollHeight &&
@@ -71,21 +80,19 @@ export function BeerRecipes() {
   };
   const onContextMenu = (e, index) => {
     e.preventDefault();
-    !e.target.classList.contains("checked-recipe")
-      ? e.target.classList.add("checked-recipe")
-      : e.target.classList.remove("checked-recipe");
-
+    const currentRecipe = findElementByIndex(beerRecipes, index);
     function findElementByIndex(arr, index) {
       const foundElement = arr.find(
         (element, currentIndex) => currentIndex === index
       );
       return foundElement !== undefined ? foundElement : null;
     }
-    const currentRecipe = findElementByIndex(beerRecipes, index);
-
-    console.log(currentRecipe);
     const checked = currentRecipe.checked ? false : true;
+    checked
+      ? e.target.classList.add("checked-recipe")
+      : e.target.classList.remove("checked-recipe");
     console.log(checked);
+    console.log(currentRecipe);
     setChecked(index, checked);
   };
 
@@ -94,6 +101,7 @@ export function BeerRecipes() {
       {beerRecipes.length
         ? beerRecipes.map((recipe, index) => (
             <div
+              className="beerRecipe"
               onClick={() => PushToRecipe(recipe.name)}
               onContextMenu={() => onContextMenu(window.event, index)}
               style={{
