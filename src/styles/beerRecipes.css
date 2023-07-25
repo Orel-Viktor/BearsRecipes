@@ -1,3 +1,9 @@
 .checked-recipe {
   background-color: greenyellow;
 }
+.root.delete-recipes-button {
+  position: fixed;
+  font-size: 10px;
+  top: 100px;
+  left: 100px;
+}

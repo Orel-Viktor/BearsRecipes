@@ -2,7 +2,7 @@
 import React from "react";
 // Components
 import { Main } from "../../ui/pages/Main";
-import { Recipe } from "../../ui/pages/Recipe";
+import { BeerRecipe } from "../../ui/pages/Recipe";
 
 export const routes = {
   home: "/BeerRecipes/",
@@ -16,6 +16,6 @@ export const pages = [
   },
   {
     path: routes.recipe,
-    element: <Recipe />,
+    element: <BeerRecipe />,
   },
 ];

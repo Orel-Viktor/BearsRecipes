@@ -1,16 +1,25 @@
 import React, { useEffect } from "react";
 import { useStore } from "../../engine/config/store";
 import { useNavigate } from "react-router-dom";
+import { Box } from "@mui/material";
+
+// Engine
 import { routes } from "../../engine/config/routers";
-// import { useInView } from "react-intersection-observer";
+// Components
+import { DeleteRecipes } from "./DeleteRecipes";
 
 export function BeerRecipes() {
   const nav = useNavigate();
   // store.js
+  // const beerRecipesLength = useStore((state) => state.beerRecipesLength);
+  // const setBeerRecipesLength = useStore((state) => state.setBeerRecipesLength);
+
   const beerRecipes = useStore((state) => state.beerRecipes);
   const setBeerRecipes = useStore((state) => state.setBeerRecipes);
+
   const responseBeer = useStore((state) => state.responseBeer);
   const setBeerResponse = useStore((state) => state.setBeerResponse);
+
   const setChecked = useStore((state) => state.setChecked);
 
   const page = useStore((state) => state.page);
@@ -19,14 +28,10 @@ export function BeerRecipes() {
   const setBeerName = useStore((state) => state.setBeerName);
   const setRecipe = useStore((state) => state.setRecipe);
 
+  const deleteRecipes = useStore((state) => state.deleteRecipes);
   // store.js;
-  const heightRecipes = window.visualViewport.height / 15;
-  // console.log(beerRecipes);
 
-  // Observer
-  // const { ref, inView } = useInView({
-  //   threshold: 1,
-  // });
+  const heightRecipes = window.visualViewport.height / 15;
 
   useEffect(() => {
     window.addEventListener("scroll", scrlonig);
@@ -78,29 +83,34 @@ export function BeerRecipes() {
     setBeerRecipes(recipes);
     setBeerResponse(recipes);
   };
+
   const onContextMenu = (e, index) => {
     e.preventDefault();
-    const currentRecipe = findElementByIndex(beerRecipes, index);
     function findElementByIndex(arr, index) {
       const foundElement = arr.find(
         (element, currentIndex) => currentIndex === index
       );
       return foundElement !== undefined ? foundElement : null;
     }
+    const currentRecipe = findElementByIndex(beerRecipes, index);
+
     const checked = currentRecipe.checked ? false : true;
     checked
       ? e.target.classList.add("checked-recipe")
       : e.target.classList.remove("checked-recipe");
-    console.log(checked);
-    console.log(currentRecipe);
+
     setChecked(index, checked);
   };
 
   return (
-    <div>
+    <Box>
+      <DeleteRecipes
+        onClick={deleteRecipes}
+        className="root delete-recipes-button"
+      />
       {beerRecipes.length
         ? beerRecipes.map((recipe, index) => (
-            <div
+            <Box
               className="beerRecipe"
               onClick={() => PushToRecipe(recipe.name)}
               onContextMenu={() => onContextMenu(window.event, index)}
@@ -112,12 +122,12 @@ export function BeerRecipes() {
                 alignItems: "center",
                 justifyContent: "space-around",
               }}
-              key={recipe + recipe.id}
+              key={recipe + recipe.id + index}
             >
               {recipe.name}
-            </div>
+            </Box>
           ))
         : null}
-    </div>
+    </Box>
   );
 }

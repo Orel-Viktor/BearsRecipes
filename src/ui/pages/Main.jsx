@@ -3,5 +3,10 @@ import React from "react";
 import { BeerRecipes } from "../components/BeerRecipes";
 
 export function Main() {
-  return <BeerRecipes />;
+  return (
+    <div>
+      {" "}
+      <BeerRecipes />;
+    </div>
+  );
 }

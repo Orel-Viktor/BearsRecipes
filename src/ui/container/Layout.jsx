@@ -3,9 +3,9 @@ import * as React from "react";
 import { ThemeProvider, createTheme } from "@mui/material/styles";
 import { Container } from "@mui/material";
 import { Outlet } from "react-router-dom";
-
+// Components
+import { Header } from "../components/Header";
 // Parts
-
 import { orange } from "@mui/material/colors";
 import Box from "@mui/material/Box";
 // Scrolling
@@ -94,7 +94,9 @@ export function Layout() {
           <HideOnScroll>
             <AppBar className=" root custom-bar">
               <Toolbar sx={{ margin: "0 auto" }}>
-                <Typography variant="h6" component="div"></Typography>
+                <Typography variant="h6" component="div">
+                  <Header />
+                </Typography>
               </Toolbar>
             </AppBar>
           </HideOnScroll>
