@@ -30,7 +30,7 @@ export function BeerRecipes() {
       window.removeEventListener("scroll", scrlonig);
     };
   });
-
+  console.log();
   useEffect(() => {
     initState();
   }, []);
