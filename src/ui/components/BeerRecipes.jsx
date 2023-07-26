@@ -16,22 +16,18 @@ export function BeerRecipes() {
 
   const beerRecipes = useStore((state) => state.beerRecipes);
   const setBeerRecipes = useStore((state) => state.setBeerRecipes);
-
   const responseBeer = useStore((state) => state.responseBeer);
   const setBeerResponse = useStore((state) => state.setBeerResponse);
-
   const setChecked = useStore((state) => state.setChecked);
-
   const page = useStore((state) => state.page);
   const incPage = useStore((state) => state.incPage);
-
   const setBeerName = useStore((state) => state.setBeerName);
   const setRecipe = useStore((state) => state.setRecipe);
-
   const deleteRecipes = useStore((state) => state.deleteRecipes);
   // store.js;
-
   const heightRecipes = window.visualViewport.height / 15;
+
+  console.log(beerRecipes.length);
 
   useEffect(() => {
     window.addEventListener("scroll", scrlonig);
@@ -45,6 +41,10 @@ export function BeerRecipes() {
   }, []);
 
   useEffect(() => {
+    stateAfterDelete();
+  }, [beerRecipes.length]);
+
+  useEffect(() => {
     for (let i = 0; i < beerRecipes.length; i++) {
       const checked = beerRecipes[i].checked;
       const divBeerRecipe = document.querySelectorAll(".beerRecipe");
@@ -53,6 +53,7 @@ export function BeerRecipes() {
         : divBeerRecipe[i].classList.remove("checked-recipe");
     }
   }, []);
+
   const scrlonig = () => {
     if (
       scrollY + innerHeight === document.body.scrollHeight &&
@@ -62,8 +63,16 @@ export function BeerRecipes() {
       GetRecipes(page);
     }
   };
+
   const initState = () => {
     if (!beerRecipes.length) {
+      incPage();
+      GetRecipes(page);
+    }
+  };
+
+  const stateAfterDelete = () => {
+    if (beerRecipes.length && beerRecipes.length < 5) {
       incPage();
       GetRecipes(page);
     }
@@ -93,12 +102,10 @@ export function BeerRecipes() {
       return foundElement !== undefined ? foundElement : null;
     }
     const currentRecipe = findElementByIndex(beerRecipes, index);
-
     const checked = currentRecipe.checked ? false : true;
     checked
       ? e.target.classList.add("checked-recipe")
       : e.target.classList.remove("checked-recipe");
-
     setChecked(index, checked);
   };
 
