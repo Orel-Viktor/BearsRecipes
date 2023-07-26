@@ -11,5 +11,5 @@ export default defineConfig({
       exclude: [],
     }),
   ],
-  base: "/BeerRecipes/",
+  base: "/BeersRecipes/",
 });

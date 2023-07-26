@@ -5,7 +5,7 @@ import { Main } from "../../ui/pages/Main";
 import { BeerRecipe } from "../../ui/pages/Recipe";
 
 export const routes = {
-  home: "/BeerRecipes/",
+  home: "/BeersRecipes/",
   recipe: "/BeerRecipes/Recipe",
 };
 
