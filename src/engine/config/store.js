@@ -1,5 +1,4 @@
 import { create } from "zustand";
-// import { persist, createJSONStorage } from "zustand/middleware";
 
 export const useStore = create((set) => ({
   beerRecipes: [],
@@ -46,15 +45,10 @@ export const useStore = create((set) => ({
     }),
   deleteRecipes: () =>
     set((state) => {
-      console.log("удаляю");
-      console.log(state.beerRecipes.length);
       const newBeerRecipes = [...state.beerRecipes];
       const afterDeleteRecipes = newBeerRecipes.filter(
         (elem) => elem.checked !== true
       );
-      // if(afterDeleteRecipes.length<5){
-
-      // }
       return { beerRecipes: afterDeleteRecipes };
     }),
 }));

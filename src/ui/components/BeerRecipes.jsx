@@ -11,9 +11,6 @@ import { DeleteRecipes } from "./DeleteRecipes";
 export function BeerRecipes() {
   const nav = useNavigate();
   // store.js
-  // const beerRecipesLength = useStore((state) => state.beerRecipesLength);
-  // const setBeerRecipesLength = useStore((state) => state.setBeerRecipesLength);
-
   const beerRecipes = useStore((state) => state.beerRecipes);
   const setBeerRecipes = useStore((state) => state.setBeerRecipes);
   const responseBeer = useStore((state) => state.responseBeer);
@@ -26,8 +23,6 @@ export function BeerRecipes() {
   const deleteRecipes = useStore((state) => state.deleteRecipes);
   // store.js;
   const heightRecipes = window.visualViewport.height / 15;
-
-  console.log(beerRecipes.length);
 
   useEffect(() => {
     window.addEventListener("scroll", scrlonig);
